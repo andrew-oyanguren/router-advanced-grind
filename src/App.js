@@ -115,7 +115,7 @@ We want to accomplish two things:
 
 2) We want to show a warning prompt if the user tries to navigate away after the form has gained focus.
 
-=== Propmt Component ===
+=== Prompt Component ===
 
 React Router provides us with a prompt component.
 
@@ -135,5 +135,93 @@ a message for the user.
 * It takes a function because it allows us to pass in a 'location' object, 
 that holds information about the page we are trying to go to. 
 It would allow us to include the 'path' we are trying to go to.
+
+
+
+=== Query Parameters ===
+
+Are special perameters that you find at the end of a url, and that basically pass extra data to the url.
+
+Syntax: ? key == value
+
+Starts with a question mark, and is followed by a key/value pairing.
+
+* Regular Dynamic Route vs Query Parameter Route:
+
+The diefference between the two is that Regular dynamic routes are 'mandatory' routes, 
+meaning that the nested (rendered) component is only loaded if the dynamic route is matched,
+
+While Query Parameters are optional. They do not change the 'route matching',
+but whatever route is matched it then has access to that parameter data, to
+for exmaple change the behaivor of the page loaded.
+
+Query Parameter Use-Case Example:
+
+A page that loads a list, the query  allows you to implement sorting into your url. 
+So that when your list is in ascending vs descending order, your url reflects those states.
+
+* This way a user can have access to the different states of your page by simply loading that url.
+
+
+=== Writing more flexible Routing Paths ===
+
+Currently we are manually building our dynamic strings in a simple way,
+and it works, but it has one downside to this approach.
+
+* Downside: If we ever change our main route to another path,
+then we have to go through our code and change it everywhere that we added our manually-built
+paths, but (even more complicatedingly) we also have to change our nested routes that rely on the parent route.
+
+* FIX:
+
+We can leverage some of the hooks that react-router provides us with, that allows us to indentify the paths being used,
+and its these properties that we can use to build our dynamic paths.
+
+So our nested paths are built on top of path references, provided to use from react-router hooks.
+
+
+
+=== useRouteMatch Hook ===
+
+Hook is similar to the useLocation object, but it actually provides us with more information about the currently loaded app
+then the useLocation object.
+
+* useRouteMatch Object: Returns,
+
+1) params object, which consists of the dynamic path key and it's value.
+2) path: The actual path defined by the developer, including the dynamic placeholder.
+
+* Path is great for creating a dynamic path that is based on a dynamic placeholder path.
+
+3) URL: The URL path
+
+* URL is great for url that is already apart of that page, just adding onto it.
+
+== Using useRouteMatch ==
+
+we can call useRouterMatch and store the returned object into a match constant.
+
+This object can be used to define our routes dynamically, by accessing it's properties as a reference!
+
+
+
+=== Alternative pathname construction ===
+
+React router allows you to construct your path destination in a seperate way,
+because when you have big projects paths can become long and convoluted.
+
+* Passing an object value:
+
+Instead of a string path, you can also pass an object to descibe the path destination.
+
+== Path Object ==
+
+The path object wants:
+
+1) pathname: the path you want to navigate to.
+2) search: allows you to add query parameters.
+
+* You still define your query params with a string, but now it's split with the pathname
+into two different properties, making it easier to read and follow.
 
 */
